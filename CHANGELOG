@@ -1,2 +1,4 @@
 * 0.1.0.1
 	+ initial commit
+* 0.1.0.2
+	+ corrected reference to budget database instead of users database in api

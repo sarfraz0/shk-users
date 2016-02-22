@@ -1,5 +1,5 @@
 {
-    "logfile": "/home/sarfraz/indus/shk-users/app/var/log/users.out",
+    "logfile": "c:/Users/sarfraz.kapasi/indus/shk-users/app/var/log/users.out",
     "app_port": 8080,
     "loglvl": "dbg",
     "postgres_back": "psycopg2cffi"

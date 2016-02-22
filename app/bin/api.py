@@ -39,7 +39,7 @@ def main():
         elif levl == 'prd':
             logger = init_logger(lgf, logging.ERROR)
 
-    database_url = os.environ['BUDGET_DATABASE_URI']
+    database_url = os.environ['USERS_DATABASE_URI']
 
     if database_url.startswith('postgresql'):
         pback = 'psycopg2'
