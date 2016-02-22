@@ -11,6 +11,7 @@
 *.dump
 *.cache
 *.swp
+*.db
 
 
 ### Maven ###
