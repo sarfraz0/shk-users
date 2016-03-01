@@ -4,3 +4,5 @@
 	+ corrected reference to budget database instead of users database in api
 * 0.1.0.3
 	+ deleted users.db
+* 0.1.0.4
+	+ added dockerfile
