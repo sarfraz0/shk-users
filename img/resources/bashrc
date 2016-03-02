@@ -1,0 +1,2 @@
+export USERS_DATABASE_URI="postgresql://tool:mster@$(netstat -nr | grep '^0\.0\.0\.0' | awk '{print $2}'):5432/users"
+export PYTHONPATH="/opt/indus/lib"
