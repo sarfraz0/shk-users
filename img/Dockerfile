@@ -18,16 +18,16 @@ RUN groupadd indus && \
     chmod 770 -R /opt/indus && \
     chown -R indus:indus /opt/indus
 
-COPY resources/shksystem.net-0.1.9.14.tar.gz /tmp
+COPY resources/shksystem.net-0.1.9.15.tar.gz /tmp
 COPY resources/bashrc /home/indus/.bashrc
 
-RUN chown -R indus:indus /home/indus /tmp/shksystem.net-0.1.9.14.tar.gz
+RUN chown -R indus:indus /home/indus /tmp/shksystem.net-0.1.9.15.tar.gz
 
 USER indus
 
 RUN pip install --user tornado sqlalchemy psycopg2cffi redis futures && \
-    tar xvf /tmp/shksystem.net-0.1.9.14.tar.gz && \
+    tar xvf /tmp/shksystem.net-0.1.9.15.tar.gz && \
     mv /tmp/net /opt/indus/lib && \
     touch /opt/indus/lib/__init__.py && \
-    rm -f /tmp shksystem.net-0.1.9.14.tar.gz
+    rm -f /tmp shksystem.net-0.1.9.15.tar.gz
 
