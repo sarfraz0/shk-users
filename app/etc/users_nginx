@@ -1,0 +1,43 @@
+server {
+    listen 80;
+    return 301 https://$host$request_uri;
+}
+
+server {
+
+    listen 443;
+    server_name localhost;
+
+    auth_basic "Restricted";
+    auth_basic_user_file /etc/nginx/.htpasswd;
+
+    ssl_certificate           /indus/share/certs/rpi003.crt;
+    ssl_certificate_key       /indus/share/certs/rpi003.key;
+
+    ssl  on;
+    ssl_dhparam /indus/share/certs/dh4096.pem;
+    ssl_session_timeout  10m;
+    ssl_prefer_server_ciphers on;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers 'AES256+EECDH:AES256+EDH';
+    ssl_session_cache shared:SSL:10m;
+    ssl_stapling on;
+    ssl_stapling_verify on;
+    add_header Strict-Transport-Security max-age=535680000;
+
+    access_log            /var/log/nginx/users.access.log;
+
+    location / {
+
+      proxy_set_header        Host $host;
+      proxy_set_header        X-Real-IP $remote_addr;
+      proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header        X-Forwarded-Proto $scheme;
+
+      # Fix the “It appears that your reverse proxy set up is broken" error.
+      proxy_pass          http://localhost:8081;
+      proxy_read_timeout  90;
+
+      proxy_redirect      http://localhost:8081 https://localhost;
+    }
+}

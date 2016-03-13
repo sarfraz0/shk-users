@@ -6,9 +6,9 @@
 	+ deleted users.db
 * 0.1.0.4
 	+ added dockerfile
-<<<<<<< HEAD
 * 0.1.0.5
 	+ dockerfile is nearly stable
 	+ added bashrc resource
-=======
->>>>>>> 0f96383b9b2fea22e3f1f12cb8cac346a561b614
+* 0.1.0.6
+    + script is stable in production
+    + deprecating docker
