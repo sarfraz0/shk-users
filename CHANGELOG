@@ -12,3 +12,5 @@
 * 0.1.0.6
     + script is stable in production
     + deprecating docker
+* 0.1.0.7
+	+ simplified project since its only one script with arguments now

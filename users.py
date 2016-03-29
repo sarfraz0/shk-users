@@ -54,7 +54,7 @@ def main():
               '-b',
               '--postgres-backend',
               help='postgresql backend to use',
-              default='psycopg2cffi'
+              default='psycopg2'
            )
     args = parser.parse_args()
 

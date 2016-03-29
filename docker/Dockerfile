@@ -5,25 +5,29 @@ RUN apt-get -y update && \
     apt-get -y install software-properties-common zlib1g-dev libgmp-dev zlib1g-dev libpq-dev libxml2-dev libxslt1-dev && \
     add-apt-repository -y ppa:pypy/ppa && \
     apt-get -y update && \
-    apt-get -y install -y pypy pypy-dev curl supervisor nginx redis-server && \
+    apt-get -y install -y pypy pypy-dev curl supervisor nginx redis-server postgresql && \
     curl https://bootstrap.pypa.io/get-pip.py > /tmp/get-pip.py && \
     pypy /tmp/get-pip.py && \
     rm -f /tmp/get-pip.py && \
     groupadd indus && \
     useradd -m -g indus indus && \
-    mkdir -p /opt/indus/bin /opt/indus/lib /opt/indus/etc /opt/indus/var/log && \
-    chown -R indus:indus /opt/indus
+    mkdir -p /indus/bin /indus/lib /indus/etc /indus/var/log && \
+    chown -R indus:indus /indus
 
-COPY resources/shksystem.net-0.1.9.15.tar.gz /tmp
-COPY resources/bashrc /home/indus/.bashrc
-COPY resources/users_api.py /opt/indus/bin
+COPY conf/users.cfg conf/users.conf /tmp
 
-RUN chown -R indus:indus /home/indus /opt/indus /tmp/shksystem.net-0.1.9.15.tar.gz
+RUN mv /tmp/users.cfg /etc/nginx/sites-available && \
+    ln -s /etc/nginx/sites-available/users.cfg /etc/nginx/sites-enabled/users.cfg && \
+    mv /tmp/users.conf /etc/supervisor.d
 
 USER indus
 
+COPY ../shksystem.net/net users.py /home/indus
+
 RUN pip install --user tornado sqlalchemy psycopg2cffi redis futures && \
-    tar xvf /tmp/shksystem.net-0.1.9.15.tar.gz -C /opt/indus/lib && \
+    mv /home/indus/net /indus/lib && \
     touch /opt/indus/lib/__init__.py && \
-    rm -f /tmp/shksystem.net-0.1.9.15.tar.gz
+    mv /home/indus/users.py /indus/bin
+
+EXPOSE 443
 
